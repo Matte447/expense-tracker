@@ -5,7 +5,7 @@ balance = 0
 
 # Add income to the balance
 def income(balance):
-    print("              Add income to your balance")
+    print("             Add income to your balance")
     print("-----------------------------------------------------")
     print("")
     print("How much money do you want to add?")
@@ -14,10 +14,24 @@ def income(balance):
     return balance
 
 
+def expense(balance):
+    print("                  Track your expense")
+    print("-----------------------------------------------------")
+    print("")
+    print("How much did you spent?")
+    try:
+        money_expense = int(input("> "))
+    except ValueError:
+        print("Please input a number")
+        return balance
+    balance -= money_expense
+    return balance
+
+
 while True:
-    print(f"Your current balance is {balance}")
+    print(f"Your current balance is {balance}€")
     print("What do you want to do?")
-    print("1. Track your income")
+    print("1. Add income to your balance")
     print("2. Track your expense")
     print("3. Generate an Overview of your financial situation")
     print("4. Quit")
@@ -32,7 +46,7 @@ while True:
     if option == 1:
         balance = income(balance)
     elif option == 2:
-        pass
+        balance = expense(balance)
     elif option == 3:
         pass
     elif option == 4:
