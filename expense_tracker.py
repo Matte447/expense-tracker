@@ -4,11 +4,28 @@ print("           Welcome to the expense Tracker!")
 print("-----------------------------------------------------")
 
 
-with open("tracker.json", "r") as f:
-    json_file = json.loads(f.read())
+def get_balance():
+    with open("tracker.json", "r") as f:
+        json_file = json.loads(f.read())
 
-balance = json_file["balance"]
-print(balance)
+    balance = json_file["balance"]
+    return balance
+
+
+def update_json(location, value, title):
+    with open("tracker.json", "r") as f:
+        json_file = json.loads(f.read())
+
+    json_entry = {"description": title, "amount": value, "timestamp": ""}
+
+    json_file[location].append(json_entry)
+    if location == "incomes":
+        json_file["balance"] += value
+    elif location == "expenses":
+        json_file["balance"] -= value
+
+    with open("tracker.json", "w") as f:
+        f.write(json.dumps(json_file, indent=4))
 
 
 # Add income to the balance
@@ -17,7 +34,15 @@ def income(balance):
     print("-----------------------------------------------------")
     print("")
     print("How much money do you want to add?")
-    gained_money = int(input("> "))
+    try:
+        gained_money = int(input("> "))
+    except ValueError:
+        print("Please input a number")
+        return balance
+    print("Please enter a description for your income.")
+    income_title = input("> ")
+
+    update_json("incomes", gained_money, income_title)
     balance += gained_money
     return balance
 
@@ -32,11 +57,16 @@ def expense(balance):
     except ValueError:
         print("Please input a number")
         return balance
+
+    print("Please enter a description for your expense.")
+    expense_title = input("> ")
+    update_json("expenses", money_expense, expense_title)
     balance -= money_expense
     return balance
 
 
 while True:
+    balance = get_balance()
     print(f"Your current balance is {balance}€")
     print("What do you want to do?")
     print("1. Add income to your balance")
