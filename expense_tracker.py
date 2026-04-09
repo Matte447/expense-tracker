@@ -1,6 +1,14 @@
+import json
+
 print("           Welcome to the expense Tracker!")
 print("-----------------------------------------------------")
-balance = 0
+
+
+with open("tracker.json", "r") as f:
+    json_file = json.loads(f.read())
+
+balance = json_file["balance"]
+print(balance)
 
 
 # Add income to the balance
