@@ -70,6 +70,12 @@ def expense(balance):
     return balance
 
 
+def generate_overview():
+    with open("tracker.json", "r") as f:
+        json_file = json.loads(f.read())
+    print(json_file)
+
+
 while True:
     balance = get_balance()
     print(f"Your current balance is {balance}€")
@@ -91,7 +97,7 @@ while True:
     elif option == 2:
         balance = expense(balance)
     elif option == 3:
-        pass
+        generate_overview()
     elif option == 4:
         print("Ok, Goodbye!")
         break
