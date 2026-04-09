@@ -1,4 +1,5 @@
 import json
+import datetime
 
 print("           Welcome to the expense Tracker!")
 print("-----------------------------------------------------")
@@ -16,7 +17,11 @@ def update_json(location, value, title):
     with open("tracker.json", "r") as f:
         json_file = json.loads(f.read())
 
-    json_entry = {"description": title, "amount": value, "timestamp": ""}
+    json_entry = {
+        "description": title,
+        "amount": value,
+        "timestamp": str(datetime.datetime.now()),
+    }
 
     json_file[location].append(json_entry)
     if location == "incomes":
