@@ -72,7 +72,7 @@ def expense(balance):
 
 def generate_overview():
     with open("tracker.json", "r") as f:
-        json_file = json.loads(f.read())
+        json_file = json.load(f)
     print(json_file)
 
 
