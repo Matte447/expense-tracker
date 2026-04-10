@@ -73,7 +73,28 @@ def expense(balance):
 def generate_overview():
     with open("tracker.json", "r") as f:
         json_file = json.load(f)
-    print(json_file)
+    expenses_history = ""
+    for expenses in json_file["expenses"]:
+        expenses_history += f"""  Expense: {expenses["amount"]}
+  Description: {expenses["description"]}
+  Date: {expenses["timestamp"]}
+  --------------------------------------------------
+"""
+    income_history = ""
+    for incomes in json_file["incomes"]:
+        income_history += f"""  Income: {incomes["amount"]}
+  Description: {incomes["description"]}
+  Date: {incomes["timestamp"]}
+  --------------------------------------------------
+"""
+
+    with open("overview.txt", "w") as f:
+        f.write(f"""Current balance: {json_file["balance"]}
+Income History:
+{income_history}
+Expense History:
+{expenses_history}
+""")
 
 
 while True:
